@@ -1,4 +1,4 @@
-import numpy as np
+import numpy
 import cv2
 from utils import widgets
 
