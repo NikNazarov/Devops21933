@@ -28,7 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install -r requirements.txt
-        pip install coverage
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -38,7 +37,22 @@ jobs:
     - name: Test with pytest
       run: |
         export PYTHONPATH=src
-        coverage run -m pytest
+
+name: 'coverage'
+on:
+    pull_request:
+        branches:
+            - master
+            - main
+jobs:
+    coverage:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get Cover 
+            uses: orgoro/coverage@v3
+            with:
+                coverageFile: path/to/coverage.xml
+                token: ${{ secrets.GITHUB_TOKEN }}
     # - name: Get Cover 
     #       uses: orgoro/coverage@v3
     #       with:
